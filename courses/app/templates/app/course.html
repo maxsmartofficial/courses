@@ -1,0 +1,5 @@
+{% load markdown_tags %}
+
+<h1>{{ course.name }}</h1>
+<p>{{ course.description | markdown | safe }}</p>
+<p>Total modules: {{ course.module_set.count}}</p>
