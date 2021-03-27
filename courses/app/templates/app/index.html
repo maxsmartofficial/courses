@@ -14,7 +14,7 @@
 
 <div class="box">
  <h2 class="subtitle"><a href="{% url 'course' c.slug %}">{{ c.name }}</a></h2>
- {{ c.description | markdown_sample | safe }}
+ <div class="block is-family-secondary">{{ c.short_description | markdown | safe }}</div>
 </div>
 
 {% endfor %}
