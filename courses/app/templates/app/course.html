@@ -1,5 +1,26 @@
+{% extends 'app/base.html' %}
+{% block content %}
+
 {% load markdown_tags %}
 
-<h1>{{ course.name }}</h1>
-<p>{{ course.description | markdown | safe }}</p>
-<p>Total modules: {{ course.module_set.count}}</p>
+<div class="box">
+ <div class="block">
+  <h1 class="title">{{ course.name }}</h1>
+ </div>
+ <div class="block is-family-secondary">{{ course.description | markdown | safe }}</div>
+
+ {% if modules %}
+ <div class="block">
+  <h2 class="subtitle">Modules</h2>
+  {% for m in modules %}
+   <hr>
+   <h2 class="subtitle">{{ m.name }}</h2>
+  {% endfor %}
+ </div>
+ {% endif %}
+
+</div>
+
+
+
+{% endblock %}

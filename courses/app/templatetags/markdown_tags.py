@@ -9,3 +9,9 @@ register = template.Library()
 @stringfilter
 def markdown(value):
 	return(md.markdown(value, extensions=['markdown.extensions.fenced_code']))
+	
+@register.filter()
+@stringfilter
+def markdown_sample(value):
+	length = 80
+	return(md.markdown(value[:length] + '...', extensions=['markdown.extensions.fenced_code']))
