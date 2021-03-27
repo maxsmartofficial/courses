@@ -1,5 +1,7 @@
 from django.db import models
 
+import datetime
+
 # Create your models here.
 class Course(models.Model):
 	
@@ -16,6 +18,9 @@ class Module(models.Model):
 	order = models.IntegerField(default=0)
 	course = models.ForeignKey(Course, on_delete=models.CASCADE)
 	
+	def getTimeAllocated(self):
+		return(60*60*24*7) # 7 days
+	
 class Research(models.Model):
 
 	module = models.ForeignKey(Module, on_delete=models.CASCADE)
@@ -24,4 +29,46 @@ class Research(models.Model):
 class Assignment(models.Model):
 	module = models.ForeignKey(Module, on_delete=models.CASCADE)
 	text = models.TextField(max_length=40000)
+
+
+class CourseInstanceManager(models.Manager):
+	def startNewCourseInstance(self, course):
+		start_date = datetime.datetime.now()
+		course_instance = CourseInstance(course=course, startdate = start_date)
+		course_instance.save()
+		# Create module instances
+		modules = course.module_set.all().order_by('order')
+		# Create first module instance - starting right now
+		m = modules[0]
+		startdate = start_date
+		time = m.getTimeAllocated()
+		deadline = startdate + datetime.timedelta(seconds = time)
+		module_instance = ModuleInstance(course_instance=course_instance,
+							module = m, startdate = startdate, deadline = deadline)
+		module_instance.save()
+		# Create other module instances - starting after previous deadline
+		for i in range(1, len(modules)):
+			m = modules[i]
+			startdate = deadline
+			time = m.getTimeAllocated()
+			deadline = startdate + datetime.timedelta(seconds = time)
+			module_instance = ModuleInstance(course_instance=course_instance,
+								module = m, startdate = startdate, deadline = deadline)
+			module_instance.save()
+
+
+class CourseInstance(models.Model):
+	# One of these is created every time the course is run - has many students
+	course = models.ForeignKey(Course, on_delete=models.CASCADE)
+	startdate = models.DateTimeField(null=True)
+	
+	objects = CourseInstanceManager()
+
+class ModuleInstance(models.Model):
+	# One of these is created for each student
+	course_instance = models.ForeignKey(CourseInstance, on_delete=models.CASCADE)
+	module = models.ForeignKey(Module, on_delete=models.CASCADE)
+	startdate = models.DateTimeField(null=True)
+	deadline = models.DateTimeField(null=True)
+	
 	
