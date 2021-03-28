@@ -1,5 +1,5 @@
 from django.db import models
-
+import uuid
 import datetime
 
 # Create your models here.
@@ -59,6 +59,7 @@ class CourseInstanceManager(models.Manager):
 
 class CourseInstance(models.Model):
 	# One of these is created every time the course is run - has many students
+	id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
 	course = models.ForeignKey(Course, on_delete=models.CASCADE)
 	startdate = models.DateTimeField(null=True)
 	
@@ -66,6 +67,7 @@ class CourseInstance(models.Model):
 
 class ModuleInstance(models.Model):
 	# One of these is created for each student
+	id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
 	course_instance = models.ForeignKey(CourseInstance, on_delete=models.CASCADE)
 	module = models.ForeignKey(Module, on_delete=models.CASCADE)
 	startdate = models.DateTimeField(null=True)
