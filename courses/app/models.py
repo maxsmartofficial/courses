@@ -18,8 +18,16 @@ class Module(models.Model):
 	order = models.IntegerField(default=0)
 	course = models.ForeignKey(Course, on_delete=models.CASCADE)
 	
-	def getTimeAllocated(self):
-		return(60*60*24*7) # 7 days
+	def getTimeAllocated(self, length):
+		if length=="short":
+			days=4
+		elif length=="medium":
+			days=7
+		elif length=="long":
+			days=14
+		else:
+			raise Exception(length + " not a valid course length")
+		return(60*60*24*days) # 7 days
 	
 class Research(models.Model):
 
@@ -32,7 +40,7 @@ class Assignment(models.Model):
 
 
 class CourseInstanceManager(models.Manager):
-	def startNewCourseInstance(self, course):
+	def startNewCourseInstance(self, course, length):
 		start_date = datetime.datetime.now()
 		course_instance = CourseInstance(course=course, startdate = start_date)
 		course_instance.save()
@@ -41,7 +49,7 @@ class CourseInstanceManager(models.Manager):
 		# Create first module instance - starting right now
 		m = modules[0]
 		startdate = start_date
-		time = m.getTimeAllocated()
+		time = m.getTimeAllocated(length)
 		deadline = startdate + datetime.timedelta(seconds = time)
 		module_instance = ModuleInstance(course_instance=course_instance,
 							module = m, startdate = startdate, deadline = deadline)
@@ -50,7 +58,7 @@ class CourseInstanceManager(models.Manager):
 		for i in range(1, len(modules)):
 			m = modules[i]
 			startdate = deadline
-			time = m.getTimeAllocated()
+			time = m.getTimeAllocated(length)
 			deadline = startdate + datetime.timedelta(seconds = time)
 			module_instance = ModuleInstance(course_instance=course_instance,
 								module = m, startdate = startdate, deadline = deadline)

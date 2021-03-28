@@ -16,7 +16,7 @@ def view_course(request, course_slug):
 	# View details about a course
 	c = Course.objects.get(slug=course_slug)
 	module_list = Module.objects.filter(course=c).order_by('order')
-	form = CourseSignUpForm({"course": c})
+	form = CourseSignUpForm(initial={"course": c})
 	return(render(request, 'app/course.html', {"course": c, "modules": module_list, "form": form}))
 	
 	
@@ -25,7 +25,8 @@ def course_sign_up(request):
 		form = CourseSignUpForm(request.POST)
 		if form.is_valid():
 			course = form.cleaned_data['course']
-			CourseInstance.objects.startNewCourseInstance(course)
+			length = form.cleaned_data['length']
+			CourseInstance.objects.startNewCourseInstance(course, length)
 			
 			return(HttpResponseRedirect(reverse('index', kwargs={})))
 			
@@ -34,4 +35,4 @@ def course_sign_up(request):
 	
 	return(render(request, 'app/signup.html', {"form": form}))
 	
-	
+
