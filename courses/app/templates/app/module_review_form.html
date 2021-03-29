@@ -1,0 +1,54 @@
+{% load markdown_tags %}
+{% load bulma_tags %}
+ {% load widget_tweaks %}
+ 
+ <div class="block">
+  <h1 class="title">Have you finished <b>{{ module_instance.module.name }}</b>?</h1>
+ </div>
+
+ <form class="is-family-secondary" action="{% url 'module_review' %}" method="post">
+  {% csrf_token %}
+  
+ 	{% for hidden_field in form.hidden_fields %}
+		{{ hidden_field }}
+		{% for error in hidden_field.errors %}
+			<div class="notification is-danger is-light">
+				{{ error }}
+			</div>
+		{% endfor %}
+	{% endfor %}
+
+	{% if form.non_field_errors %}
+		<div class="notification is-danger is-light">
+		{% for error in form.non_field_errors %}
+			{{ error }}
+		{% endfor %}
+		</div>
+	{% endif %}	
+
+  {# ASSUMES THEY ARE ALL SELECTS #}
+  {% for field in form.visible_fields %}
+   <div class="field">
+    <label class="label">{{ field.label }}</label>
+    <div class="control">
+     {% if form.is_bound %}
+      {% if field.errors %}
+       <div class="select is-fullwidth is-warning">{% render_field field %}</div>
+       </div>
+       {% for error in field.errors %}
+        <p class="help">{{ error }}</p>
+       {% endfor %}
+      {% else %}
+       <div class="select is-fullwidth is-success">{% render_field field %}</div>
+       </div>
+      {% endif %}
+     {% else %}
+      <div class="select is-fullwidth">{% render_field field %}</div>
+     </div>
+    {% endif %}
+   </div>
+   {% endfor %}
+	
+	
+  <input class="button is-warning is-fullwidth" type="submit" name="submit" value="Complete Module">
+ </form>

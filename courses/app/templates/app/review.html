@@ -1,0 +1,10 @@
+{% extends 'app/base.html' %}
+{% block content %}
+
+<div class="box">
+
+ {% include 'app/module_review_form.html' with module_instance=module_instance form=form %}
+
+</div>
+
+{% endblock content %}

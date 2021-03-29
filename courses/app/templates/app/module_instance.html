@@ -6,29 +6,46 @@
 
 <div class="box">
  <div class="block">
-  <h1 class="title">{{ module_instance.module.name }}</h1>
+  <div class="columns is-vcentered">
+   <div class="column">
+    <h1 class="title">{{ module_instance.module.name }}</h1>
+   </div>
+   <div class="column is-narrow">
+    {% if not module_instance.is_completed %}
+     <button class="button is-link is-size-6 modal-button" data-target="modal" aria-haspopup="true">Complete ?</button>
+	{% else %}
+	 <button class="button is-link is-disabled is-size-6">Complete :)</button>
+	{% endif %}
+   </div>
+  </div>
  </div>
  <div class="block is-family-secondary">{{ module_instance.module.description | markdown | safe }}</div>
  {% if module_instance.module.research_set %}
-  <h2 class="subtitle">Research</h2>
-  <hr>
+  <h2 class="subtitle" style="text-decoration:underline;">Research</h2>
+
   {% for a in module_instance.module.assignment_set.all %}
    <div class="block is-family-secondary">{{ a.text | markdown | safe }}</div>
   {% endfor %}
  {% endif %}
  
  {% if module_instance.module.assignment_set %}
-  <h2 class="subtitle">Assignments</h2>
-  <hr>
+  <h2 class="subtitle" style="text-decoration:underline;">Assignments</h2>
+
   {% for a in module_instance.module.assignment_set.all %}
    <div class="block is-family-secondary">{{ a.text | markdown | safe }}</div>
   {% endfor %}
  {% endif %}
  
- <form action="{% url 'module_review' %}" method="post">
-  {% csrf_token %}
-  {{ form | bulma }}
-  <input class="button" type="submit" name="submit" value="Submit the form">
- </form>
 </div>
+{% if not module_instance.is_completed %}
+<div class="modal" id="modal">
+  <div class="modal-background"></div>
+  <div class="modal-content p-6">
+   <div class="box mx-6">
+    {% include 'app/module_review_form.html' with module_instance=module_instance form=form %}
+   </div>
+  </div>
+  <button class="modal-close is-large" aria-label="close"></button>
+</div>
+{% endif %}
 {% endblock content %}

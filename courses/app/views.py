@@ -62,6 +62,7 @@ def view_module(request, pk):
 def module_review(request):
 	if request.method == "POST":
 		form = ModuleReviewForm(request.POST)
+		module_instance = get_object_or_404(ModuleInstance, pk=request.POST['module_instance'])
 		if form.is_valid():
 			form.save()
 
@@ -70,4 +71,4 @@ def module_review(request):
 	else:
 		return(HttpResponse404)
 		
-	return(render(request, 'app/review.html', {"form": form}))
+	return(render(request, 'app/review.html', {"form": form, "module_instance": module_instance}))
