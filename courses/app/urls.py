@@ -9,4 +9,5 @@ urlpatterns = [
 	path('mycourses/', views.my_courses, name='my_courses'),
 	path('mycourses/<uuid:pk>', views.my_courses_course, name='my_courses_course'),
 	path('mycourses/module/<uuid:pk>', views.view_module, name='view_module'),
+	path('review', views.module_review, name='module_review'),
 ]

@@ -2,7 +2,7 @@ from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse, Http404, HttpResponseRedirect
 from django.urls import reverse
 from .models import Course, Module, CourseInstance, ModuleInstance
-from .forms import CourseSignUpForm
+from .forms import CourseSignUpForm, ModuleReviewForm
 
 # Create your views here.
 
@@ -45,7 +45,6 @@ def my_courses(request):
 
 
 def my_courses_course(request, pk):
-
 	# Get course instance
 	course_instance = get_object_or_404(CourseInstance, id=pk)
 	# Get module instances for course instance and user
@@ -56,5 +55,19 @@ def my_courses_course(request, pk):
 def view_module(request, pk):
 	# Get module instance for user
 	module_instance = get_object_or_404(ModuleInstance, id=pk)
-	
-	return(render(request, 'app/module_instance.html', {"module_instance": module_instance}))
+	form = ModuleReviewForm(initial={'module_instance':module_instance})
+	return(render(request, 'app/module_instance.html', {"module_instance": module_instance, "form": form}))
+
+
+def module_review(request):
+	if request.method == "POST":
+		form = ModuleReviewForm(request.POST)
+		if form.is_valid():
+			form.save()
+
+			return(HttpResponseRedirect(reverse('index', kwargs={})))
+
+	else:
+		return(HttpResponse404)
+		
+	return(render(request, 'app/review.html', {"form": form}))

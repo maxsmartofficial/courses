@@ -73,6 +73,8 @@ class CourseInstance(models.Model):
 	
 	objects = CourseInstanceManager()
 
+
+
 class ModuleInstance(models.Model):
 	# One of these is created for each student
 	id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
@@ -80,5 +82,40 @@ class ModuleInstance(models.Model):
 	module = models.ForeignKey(Module, on_delete=models.CASCADE)
 	startdate = models.DateTimeField(null=True)
 	deadline = models.DateTimeField(null=True)
+	completed = models.BooleanField(default=False)
+	
+	def is_completed(self):
+		return(hasattr(self, 'modulereview'))
+
 	
 	
+class ModuleReview(models.Model):
+
+	RESEARCH_CHOICES = (
+		("NA","Not applicable."),
+		("GG", "It was fine."),
+		("TL", "It took too much time."),
+		("TS", "There was too little content."),
+		("TD", "I didn't understand it.")
+	)
+
+	ASSIGNMENT_CHOICES = (
+		("NA","Not applicable."),
+		("GG", "It was fine."),
+		("TL", "It took too much time."),
+		("TS", "There was too little content."),
+		("TD", "I didn't understand it.")
+	)
+	
+	SUCCESS_CHOICES = (
+		("NA","Not applicable."),
+		("GG", "I think I did very well."),
+		("QG", "I think I mostly succeeded."),
+		("QB", "I think I was mostly unsuccessful."),
+		("BB", "I think I was completely unsuccessful.")
+	)
+	
+	module_instance = models.OneToOneField(ModuleInstance, on_delete=models.SET_NULL, default=None, null=True, blank=True)
+	assignment_success = models.CharField(max_length=2, choices = SUCCESS_CHOICES, default="NA")
+	research_review = models.CharField(max_length=2, choices = RESEARCH_CHOICES, default="NA")
+	assignment_review = models.CharField(max_length=2, choices = ASSIGNMENT_CHOICES, default="NA")
