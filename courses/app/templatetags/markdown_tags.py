@@ -1,9 +1,14 @@
 from django import template
 from django.template.defaultfilters import stringfilter
 
+import datetime
 import markdown as md
 
 register = template.Library()
+
+@register.filter()
+def inthepast(date):
+	return(date.astimezone() < datetime.datetime.now().astimezone())
 
 @register.filter()
 @stringfilter

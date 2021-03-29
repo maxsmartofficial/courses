@@ -1,0 +1,22 @@
+{% extends 'app/base.html' %}
+{% block content %}
+
+{% load markdown_tags %}
+
+<div class="block p-3">
+ <h1 class="title">
+  My Courses
+ </h1>
+ <p class="is-family-secondary">This is a list of all of the courses that you are currently enrolled in.</p>
+</div>
+
+{% for c in courses %}
+
+<div class="box">
+ <h2 class="subtitle"><a href="{% url 'my_courses_course' c.id %}">{{ c.course.name }}</a></h2>
+ <div class="block is-family-secondary">{{ c.course.short_description | markdown | safe }}</div>
+</div>
+
+{% endfor %}
+
+{% endblock %}
