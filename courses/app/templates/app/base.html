@@ -52,7 +52,7 @@ document.addEventListener('DOMContentLoaded', function () {
         modalButtons.forEach(function (el) {
             el.addEventListener('click', function () {
                 var target = document.getElementById(el.dataset.target);
-                rootEl.classList.add('is-clipped');
+                //rootEl.classList.add('is-clipped');
                 target.classList.add('is-active');
             });
         });
@@ -74,7 +74,7 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
     function closeModals() {
-        rootEl.classList.remove('is-clipped');
+        //rootEl.classList.remove('is-clipped');
         allModals.forEach(function (el) {
             el.classList.remove('is-active');
         });

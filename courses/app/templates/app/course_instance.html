@@ -34,7 +34,7 @@
 	 </div>
 	 <div class="column is-narrow">
 	  {% if m.startdate|inthepast %}
-	  <a class="button is-link" href="{% url 'view_module' m.id %}">See module</a>
+	  <a class="button is-warning" href="{% url 'view_module' m.id %}">See module</a>
 	  {% endif %}
 	 </div>
     </div>

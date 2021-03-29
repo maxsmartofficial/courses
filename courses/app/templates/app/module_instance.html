@@ -12,9 +12,9 @@
    </div>
    <div class="column is-narrow">
     {% if not module_instance.is_completed %}
-     <button class="button is-link is-size-6 modal-button" data-target="modal" aria-haspopup="true">Complete ?</button>
+     <button class="button is-warning is-size-6 modal-button" data-target="modal" aria-haspopup="true">Complete ?</button>
 	{% else %}
-	 <button class="button is-link is-disabled is-size-6">Complete :)</button>
+	 <button class="button is-warning is-disabled is-size-6">Complete :)</button>
 	{% endif %}
    </div>
   </div>
@@ -40,10 +40,10 @@
 {% if not module_instance.is_completed %}
 <div class="modal" id="modal">
   <div class="modal-background"></div>
-  <div class="modal-content p-6">
-   <div class="box mx-6">
+  <div class="modal-content">
+   <div class="column is-narrow is-three-fifths is-offset-one-fifth"><div class="box">
     {% include 'app/module_review_form.html' with module_instance=module_instance form=form %}
-   </div>
+   </div></div>
   </div>
   <button class="modal-close is-large" aria-label="close"></button>
 </div>
