@@ -8,7 +8,7 @@
 
 <div class="box">
  <div class="block">
-  <h1 class="title">{{ course_instance.course.name }}</h1>
+  <h1 class="title">{{ course_instance.course.name }} {% if course_instance.is_completed %}<b>Completed</b>{% endif %}</h1>
  </div>
  <div class="block is-family-secondary">{{ course_instance.course.description | markdown | safe }}</div>
 </div>
@@ -18,13 +18,13 @@
    <div class="box">
     <div class="columns is-vcentered">
 	 <div class="column">
-      <h2 class="subtitle">{{ m.module.name }}</h2>
+      <div class="block"><h2 class="subtitle">{{ m.module.name }}</h2></div>
       {% if m.module.short_description %}
-       <div class="is-family-secondary">{{ m.module.short_description | markdown | safe }}</div>
+       <div class="block is-family-secondary">{{ m.module.short_description | markdown | safe }}</div>
       {% endif %}
 	  
-	  
-      {% if m.deadline|inthepast %}
+	  <div class="block">
+      {% if m.deadline|inthepast or m.is_completed %}
 	   <span class="icon-text"><span>Completed</span>&nbsp;<span class="icon"><i class="material-icons">done</i></span></span>
 	  {% else %}
        {% if m.startdate|inthepast %}	  
@@ -33,10 +33,11 @@
 	     <span class="icon-text"><span>Available: <b>{{ m.startdate }}</b></span>&nbsp;<span class="icon"><i class="material-icons">schedule</i></span></span>
 	   {% endif %}
 	  {% endif %}
+	  </div>
 
 	 </div>
 	 <div class="column is-narrow">
-	  {% if m.startdate|inthepast %}
+	  {% if m.is_available %}
 	  <a class="button is-warning" href="{% url 'view_module' m.id %}">See module</a>
 	  {% endif %}
 	 </div>

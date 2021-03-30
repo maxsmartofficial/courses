@@ -16,7 +16,7 @@
 {% for c in courses %}
 
 <div class="box">
- <h2 class="subtitle"><a href="{% url 'my_courses_course' c.id %}">{{ c.course.name }}</a></h2>
+ <h2 class="subtitle"><a href="{% url 'my_courses_course' c.id %}">{{ c.course.name }}</a>{% if c.is_completed %} <b>Completed</b>{% endif %}</h2>
  <div class="block is-family-secondary">{{ c.course.short_description | markdown | safe }}</div>
 </div>
 
