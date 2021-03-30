@@ -1,0 +1,10 @@
+{% extends 'app/base.html' %}
+{% block content %}
+
+<div class="box">
+
+ {% include 'app/course_signup_form.html' with course=course form=form %}
+
+</div>
+
+{% endblock content %}

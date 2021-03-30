@@ -33,7 +33,7 @@ def course_sign_up(request):
 	else:
 		return(HttpResponse404)
 	
-	return(render(request, 'app/signup.html', {"form": form}))
+	return(render(request, 'app/signup.html', {"form": form, "course": course}))
 	
 
 
