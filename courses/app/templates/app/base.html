@@ -93,7 +93,7 @@ document.addEventListener('DOMContentLoaded', function () {
   
   <nav class="navbar is-warning" role="navigation">
    <div class="navbar-brand">
-	<a class="navbar-item" href="#"><b class="is-size-4">\(\Lambda\)</b></a>
+	<a class="navbar-item" href="{% url 'index' %}"><b class="is-size-4">\(\Lambda\)</b></a>
    
    <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarMenu">
       <span aria-hidden="true"></span>
@@ -105,7 +105,8 @@ document.addEventListener('DOMContentLoaded', function () {
    <div class="navbar-menu" id="navbarMenu">
    
    <div class="navbar-start">
-    <a class="navbar-item" href="#">Courses</a>
+    <a class="navbar-item" href="{% url 'index' %}">Courses</a>
+	<a class="navbar-item" href="{% url 'my_courses' %}">My Courses</a>
    </div>
    
    <div class="navbar-end">
@@ -126,4 +127,13 @@ document.addEventListener('DOMContentLoaded', function () {
 	</div>
   </body>
   
+ <footer class="footer">
+  <div class="container is-max-desktop">
+   <div class="content has-text-left px-5">
+    <p><a href="{% url 'index' %}">Main</a></p>
+    <p>Copyright 2021</p>
+	<p>Made with <a href="https://bulma.io/">Bulma</a></p>
+   </div>
+  </div>
+ </footer>
 </html>

@@ -26,9 +26,9 @@ def course_sign_up(request):
 		if form.is_valid():
 			course = form.cleaned_data['course']
 			length = form.cleaned_data['length']
-			CourseInstance.objects.startNewCourseInstance(course, length)
+			course_instance = CourseInstance.objects.startNewCourseInstance(course, length)
 			
-			return(HttpResponseRedirect(reverse('index', kwargs={})))
+			return(HttpResponseRedirect(reverse('my_courses_course', kwargs={"pk":course_instance.id})))
 			
 	else:
 		return(HttpResponse404)
@@ -66,7 +66,7 @@ def module_review(request):
 		if form.is_valid():
 			form.save()
 
-			return(HttpResponseRedirect(reverse('index', kwargs={})))
+			return(HttpResponseRedirect(reverse('my_courses_course', kwargs={"pk": module_instance.course_instance.id})))
 
 	else:
 		return(HttpResponse404)

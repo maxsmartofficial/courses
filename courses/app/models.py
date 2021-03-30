@@ -63,6 +63,8 @@ class CourseInstanceManager(models.Manager):
 			module_instance = ModuleInstance(course_instance=course_instance,
 								module = m, startdate = startdate, deadline = deadline)
 			module_instance.save()
+			
+		return(course_instance)
 
 
 class CourseInstance(models.Model):
