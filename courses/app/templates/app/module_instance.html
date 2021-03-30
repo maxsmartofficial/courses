@@ -2,6 +2,9 @@
 {% block content %}
 
 {% load markdown_tags %}
+
+{% block title %}Module | {{ module_instance.module.name }}{% endblock %}
+
 {% load bulma_tags %}
 
 <div class="box">

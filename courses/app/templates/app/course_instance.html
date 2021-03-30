@@ -1,4 +1,7 @@
 {% extends 'app/base.html' %}
+
+{% block title %}My Courses | {{ course_instance.course.name }}{% endblock %}
+
 {% block content %}
 
 {% load markdown_tags %}
