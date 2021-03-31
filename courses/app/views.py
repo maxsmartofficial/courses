@@ -72,3 +72,19 @@ def module_review(request):
 		return(HttpResponse404)
 		
 	return(render(request, 'app/review.html', {"form": form, "module_instance": module_instance}))
+	
+
+
+
+def my_modules(request):
+	modules = ModuleInstance.objects.all()# For user
+	
+	# Sort modules
+	modules_due = []
+	# Find modules that are available and that aren't completed
+	for m in modules:
+		if m.is_available() and not m.is_completed():
+			modules_due.append(m)
+	modules_due.sort(key=lambda m: m.deadline)
+	
+	return(render(request, 'app/my_modules.html', {"modules_due": modules_due}))

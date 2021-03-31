@@ -1,0 +1,23 @@
+{% extends 'app/base.html' %}
+
+{% block title %}My Modules{% endblock %}
+
+{% block content %}
+
+
+
+<div class="block p-3">
+ <h1 class="title">
+  My Modules
+ </h1>
+ <p class="is-family-secondary">Modules that are currently available and which you haven't yet submitted a review for:</p>
+</div>
+
+
+{% for m in modules_due %}
+
+{% include 'app/module_instance_description.html' with m=m %}
+
+{% endfor %}
+
+{% endblock %}

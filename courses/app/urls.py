@@ -10,4 +10,5 @@ urlpatterns = [
 	path('mycourses/<uuid:pk>', views.my_courses_course, name='my_courses_course'),
 	path('mycourses/module/<uuid:pk>', views.view_module, name='view_module'),
 	path('review', views.module_review, name='module_review'),
+	path('mymodules/', views.my_modules, name='my_modules'),
 ]
