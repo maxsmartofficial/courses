@@ -83,7 +83,7 @@ def my_modules(request):
 	modules_due = []
 	# Find modules that are available and that aren't completed
 	for m in modules:
-		if m.is_available() and not m.is_completed():
+		if m.is_due_soon():
 			modules_due.append(m)
 	modules_due.sort(key=lambda m: m.deadline)
 	

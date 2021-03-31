@@ -127,6 +127,9 @@ class ModuleInstance(models.Model):
 		# Return True if it is past the course deadline
 		now = datetime.datetime.now().astimezone()
 		return(now > self.deadline.astimezone())
+		
+	def is_due_soon(self):
+		return(self.is_available() and not self.is_completed())
 	
 	
 class ModuleReview(models.Model):

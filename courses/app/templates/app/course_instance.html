@@ -15,34 +15,7 @@
  {% if module_instances %}
 
   {% for m in module_instances %}
-   <div class="box">
-    <div class="columns is-vcentered">
-	 <div class="column">
-      <div class="block"><h2 class="subtitle">{{ m.module.name }}</h2></div>
-      {% if m.module.short_description %}
-       <div class="block is-family-secondary">{{ m.module.short_description | markdown | safe }}</div>
-      {% endif %}
-	  
-	  <div class="block">
-      {% if m.deadline|inthepast or m.is_completed %}
-	   <span class="icon-text"><span>Completed</span>&nbsp;<span class="icon"><i class="material-icons">done</i></span></span>
-	  {% else %}
-       {% if m.startdate|inthepast %}	  
-	     <span class="icon-text"><span>Deadline: <b>{{ m.deadline }}</b></span>&nbsp;<span class="icon"><i class="material-icons">chrome_reader_mode</i></span></span>
-	    {% else %}
-	     <span class="icon-text"><span>Available: <b>{{ m.startdate }}</b></span>&nbsp;<span class="icon"><i class="material-icons">schedule</i></span></span>
-	   {% endif %}
-	  {% endif %}
-	  </div>
-
-	 </div>
-	 <div class="column is-narrow">
-	  {% if m.is_available %}
-	  <a class="button is-warning" href="{% url 'view_module' m.id %}">See module</a>
-	  {% endif %}
-	 </div>
-    </div>
-   </div>
+   {% include 'app/module_instance_description.html' with m=m %}
   {% endfor %}
 
  {% endif %}
