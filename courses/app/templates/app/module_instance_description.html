@@ -1,6 +1,6 @@
 {% load markdown_tags %}
 
-   <div class="box{% if m.is_due_soon %} has-background-warning-light{% endif %}">
+   <div class="box{% if m.is_due_soon %} has-background-warning-light{% endif %}" style="{% if m.is_due_soon %}border:1px solid red{% endif %}">
     <div class="columns is-vcentered">
 	 <div class="column">
       <div class="block"><h2 class="subtitle">{{ m.module.name }}</h2></div>
