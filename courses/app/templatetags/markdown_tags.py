@@ -1,10 +1,16 @@
 from django import template
 from django.template.defaultfilters import stringfilter
 
+from app.models import ModuleInstance
+
 import datetime
 import markdown as md
 
 register = template.Library()
+
+@register.simple_tag
+def count_modules():
+	return(ModuleInstance.objects.getTotalModulesDue())
 
 @register.filter()
 def inthepast(date):

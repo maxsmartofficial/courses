@@ -1,3 +1,5 @@
+{% load markdown_tags %}
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -107,14 +109,15 @@ document.addEventListener('DOMContentLoaded', function () {
    <div class="navbar-start">
     <a class="navbar-item" href="{% url 'index' %}">Courses</a>
 	<a class="navbar-item" href="{% url 'my_courses' %}">My Courses</a>
+	<a class="navbar-item" href="{% url 'my_modules' %}">My Modules</a>
    </div>
    
    <div class="navbar-end">
     <div class="navbar-item is-family-secondary">
-		Hello Max
+		Hello Student
 	</div>
     <div class="navbar-item is-family-secondary">
-		You have:&nbsp;<b>3</b>&nbsp;assignments this week
+		You have:&nbsp;<b>{% count_modules %}</b>&nbsp;assignments due soon
 	</div>
    </div>
    </div>

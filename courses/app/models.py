@@ -82,6 +82,17 @@ class CourseInstanceManager(models.Manager):
 			return(module_list[index - 1].is_completed())
 
 
+
+class ModuleInstanceManager(models.Manager):
+	def getTotalModulesDue(self): # For user
+		total = 0
+		all_modules = super().all()
+		for m in all_modules:
+			if m.is_due_soon():
+				total += 1
+		return(total)
+
+
 class CourseInstance(models.Model):
 	# One of these is created every time the course is run - has many students
 	id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
@@ -109,6 +120,8 @@ class ModuleInstance(models.Model):
 	startdate = models.DateTimeField(null=True)
 	deadline = models.DateTimeField(null=True)
 	completed = models.BooleanField(default=False)
+	
+	objects = ModuleInstanceManager()
 	
 	def is_completed(self):
 		# Completed if there is a module review
