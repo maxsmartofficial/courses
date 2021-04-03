@@ -75,7 +75,7 @@ class CourseInstanceManager(models.Manager):
 		return(course_instance)
 		
 	def getModules(self, course_instance): # For user
-		"""Get ordered modules for a course_instance"""
+		"""Get ordered module instances for a course_instance"""
 		return(ModuleInstance.objects.filter(course_instance=course_instance).order_by('module__order'))
 		
 		
@@ -117,7 +117,14 @@ class CourseInstance(models.Model):
 			if not m.is_completed():
 				all_complete = False
 		return(all_complete)
-
+		
+	def completed_modules(self): # For user
+		modules = CourseInstance.objects.getModules(self)
+		number_complete = 0
+		for m in modules:
+			if m.is_completed():
+				number_complete += 1
+		return(number_complete)
 
 
 class ModuleInstance(models.Model):
