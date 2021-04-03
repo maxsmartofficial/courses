@@ -40,8 +40,19 @@ def course_sign_up(request):
 def my_courses(request):
 	# Get all courses for user
 	course_instances = CourseInstance.objects.all()
+	courses_not_completed = []
+	courses_completed = []
+	for c in course_instances:
+		if c.is_completed(): # For user
+			courses_completed.append(c)
+		else:
+			courses_not_completed.append(c)
+	courses_not_completed.sort(key=lambda c: CourseInstance.objects.getNextDeadline(c))
+	courses_completed.sort(key=lambda c: CourseInstance.objects.getEndDate(c))
 	
-	return(render(request, 'app/my_courses.html', {"courses":course_instances}))
+	courses = courses_not_completed + courses_completed
+	
+	return(render(request, 'app/my_courses.html', {"courses": courses}))
 
 
 def my_courses_course(request, pk):

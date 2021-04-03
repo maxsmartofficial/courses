@@ -88,6 +88,21 @@ class CourseInstanceManager(models.Manager):
 			return(True)
 		else:
 			return(module_list[index - 1].is_completed())
+			
+	def getNextDeadline(self, course_instance): # For user
+		module_instances = self.getModules(course_instance)
+		nextDeadline = None
+		for m in module_instances:
+			if not m.is_completed():
+				deadline = m.deadline
+				if nextDeadline == None or nextDeadline > deadline:
+					nextDeadline = deadline
+		return(nextDeadline)
+		
+	def getEndDate(self, course_instance): # For user
+		modules = self.getModules(course_instance)
+		endDate = max([m.deadline for m in modules])
+		return(endDate)
 
 
 
@@ -125,6 +140,7 @@ class CourseInstance(models.Model):
 			if m.is_completed():
 				number_complete += 1
 		return(number_complete)
+		
 
 
 class ModuleInstance(models.Model):
