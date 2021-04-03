@@ -3,12 +3,20 @@ import uuid
 import datetime
 
 # Create your models here.
+
+
+class CourseManager(models.Manager):
+	def totalCourseModules(self, course):
+		return(Module.objects.filter(course=course).count())
+
 class Course(models.Model):
 	
 	name = models.CharField(max_length=200)
 	description = models.TextField(max_length=4000)
 	short_description = models.TextField(max_length=200, null=True)
 	slug = models.SlugField(max_length=200, null=True)
+	
+	objects = CourseManager()
 	
 class Module(models.Model):
 	

@@ -1,12 +1,16 @@
 from django import template
 from django.template.defaultfilters import stringfilter
 
-from app.models import ModuleInstance
+from app.models import ModuleInstance, Course
 
 import datetime
 import markdown as md
 
 register = template.Library()
+
+@register.simple_tag
+def course_module_count(course):
+	return(Course.objects.totalCourseModules(course))
 
 @register.simple_tag
 def count_modules():
