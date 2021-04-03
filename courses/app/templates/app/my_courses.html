@@ -18,7 +18,17 @@
 <div class="box">
  <h2 class="subtitle"><a href="{% url 'my_courses_course' c.id %}">{{ c.course.name }}</a>{% if c.is_completed %} <b>Completed</b>{% endif %}</h2>
  <div class="block is-family-secondary">{{ c.course.short_description | markdown | safe }}</div>
- <p class="block is-family-secondary">Modules: <b>{{ c.completed_modules }}/{% course_module_count c.course %} complete</b></p>
+ <div class="block columns">
+  <div class="column">
+   <p class="is-family-secondary">Modules: <b>{{ c.completed_modules }}/{% course_module_count c.course %} complete</b></p>
+  </div>
+  {% get_next_deadline c as deadline %}
+  {% if deadline %}
+   <div class="column is-narrow">
+    <p class="is-family-secondary">Next deadline: <b>{{ deadline }}</b></p>
+   </div>
+  {% endif %}
+ </div>
 </div>
 
 {% endfor %}

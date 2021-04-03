@@ -1,12 +1,17 @@
 from django import template
 from django.template.defaultfilters import stringfilter
 
-from app.models import ModuleInstance, Course
+from app.models import ModuleInstance, Course, CourseInstance
 
 import datetime
 import markdown as md
 
 register = template.Library()
+
+@register.simple_tag
+def get_next_deadline(course_instance):
+	deadline = CourseInstance.objects.getNextDeadline(course_instance)
+	return(deadline)
 
 @register.simple_tag
 def course_module_count(course):
