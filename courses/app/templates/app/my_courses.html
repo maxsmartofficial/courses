@@ -23,11 +23,24 @@
    <p class="is-family-secondary">Modules: <b>{{ c.completed_modules }}/{% course_module_count c.course %} complete</b></p>
   </div>
   {% get_next_deadline c as deadline %}
-  {% if deadline %}
    <div class="column is-narrow">
-    <p class="is-family-secondary">Next deadline: <b>{{ deadline }}</b></p>
+    {% if deadline %}
+
+	 <span class="icon-text">
+	  <span class="is-family-secondary">
+	   Next deadline: <b>{{ deadline }}</b></span>&nbsp;<span class="icon"><i class="material-icons">priority_high</i>
+	  </span>
+	 </span>
+	{% else %}
+	 {% get_course_end_date c as enddate %}
+	 <span class="icon-text">
+	  <span class="is-family-secondary">
+	   Course ended: <b>{{ enddate }}</b></span>&nbsp;<span class="icon"><i class="material-icons">done</i>
+	  </span>
+	 </span>
+	{% endif %}
    </div>
-  {% endif %}
+
  </div>
 </div>
 

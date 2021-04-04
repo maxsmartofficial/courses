@@ -9,6 +9,11 @@ import markdown as md
 register = template.Library()
 
 @register.simple_tag
+def get_course_end_date(course_instance):
+	endDate = CourseInstance.objects.getEndDate(course_instance)
+	return(endDate)
+
+@register.simple_tag
 def get_next_deadline(course_instance):
 	deadline = CourseInstance.objects.getNextDeadline(course_instance)
 	return(deadline)

@@ -99,7 +99,7 @@ class CourseInstanceManager(models.Manager):
 					nextDeadline = deadline
 		return(nextDeadline)
 		
-	def getEndDate(self, course_instance): # For user
+	def getEndDate(self, course_instance): # For user because getModules needs user although could change this
 		modules = self.getModules(course_instance)
 		endDate = max([m.deadline for m in modules])
 		return(endDate)
