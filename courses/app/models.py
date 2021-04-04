@@ -18,6 +18,9 @@ class Course(models.Model):
 	
 	objects = CourseManager()
 	
+	def __str__(self):
+		return(self.name)
+	
 class Module(models.Model):
 	
 	name = models.CharField(max_length=200)
@@ -25,6 +28,9 @@ class Module(models.Model):
 	short_description = models.TextField(max_length=200, null=True)
 	order = models.IntegerField(default=0)
 	course = models.ForeignKey(Course, on_delete=models.CASCADE)
+	
+	def __str__(self):
+		return(self.name + ' | ' + str(self.course))
 	
 	def getTimeAllocated(self, length):
 		if length=="short":
@@ -42,10 +48,15 @@ class Research(models.Model):
 	module = models.ForeignKey(Module, on_delete=models.CASCADE)
 	text = models.TextField(max_length=40000)
 	
+	def __str__(self):
+		return(str(self.module))
+	
 class Assignment(models.Model):
 	module = models.ForeignKey(Module, on_delete=models.CASCADE)
 	text = models.TextField(max_length=40000)
 
+	def __str__(self):
+		return(str(self.module))
 
 class CourseInstanceManager(models.Manager):
 	def startNewCourseInstance(self, course, length):
@@ -124,6 +135,9 @@ class CourseInstance(models.Model):
 	
 	objects = CourseInstanceManager()
 	
+	def __str__(self):
+		return(str(self.course) + ' | ' + self.startdate)
+	
 	def is_completed(self): # For user
 		# Return True if all modules are completed
 		modules = CourseInstance.objects.getModules(self)
@@ -153,6 +167,9 @@ class ModuleInstance(models.Model):
 	completed = models.BooleanField(default=False)
 	
 	objects = ModuleInstanceManager()
+	
+	def __str__(self):
+		return(str(self.module) + ' | ' + self.startdate)
 	
 	def is_completed(self):
 		# Completed if there is a module review
