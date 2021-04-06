@@ -38,7 +38,11 @@
   <div class="modal-background"></div>
   <div class="modal-content">
    <div class="column is-narrow is-three-fifths is-offset-one-fifth"><div class="box">
-    {% include 'app/course_signup_form.html' with course=course form=form %}
+    {% if sign_up_possible %}
+     {% include 'app/course_signup_form.html' with course=course form=form %}
+	{% else %}
+	 <p class="subtitle is-family-secondary">You are already signed up to this course!</p>
+	{% endif %}
    </div></div>
   </div>
   <button class="modal-close is-large" aria-label="close"></button>

@@ -17,7 +17,8 @@ def view_course(request, course_slug):
 	c = Course.objects.get(slug=course_slug)
 	module_list = Module.objects.filter(course=c).order_by('order')
 	form = CourseSignUpForm(initial={"course": c})
-	return(render(request, 'app/course.html', {"course": c, "modules": module_list, "form": form}))
+	sign_up_possible = not Course.objects.alreadySignedUp(c) # For user
+	return(render(request, 'app/course.html', {"course": c, "modules": module_list, "form": form, "sign_up_possible": sign_up_possible}))
 	
 	
 def course_sign_up(request):
@@ -25,13 +26,16 @@ def course_sign_up(request):
 		form = CourseSignUpForm(request.POST)
 		if form.is_valid():
 			course = form.cleaned_data['course']
+			if Course.objects.alreadySignedUp(course): # For user
+				# Not valid
+				return(Http404)
 			length = form.cleaned_data['length']
 			course_instance = CourseInstance.objects.startNewCourseInstance(course, length)
 			
 			return(HttpResponseRedirect(reverse('my_courses_course', kwargs={"pk":course_instance.id})))
 			
 	else:
-		return(HttpResponse404)
+		return(Http404)
 	
 	return(render(request, 'app/signup.html', {"form": form, "course": course}))
 	

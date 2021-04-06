@@ -8,6 +8,11 @@ import datetime
 class CourseManager(models.Manager):
 	def totalCourseModules(self, course):
 		return(Module.objects.filter(course=course).count())
+		
+	def alreadySignedUp(self, course): # For user
+		incomplete = CourseInstance.objects.allIncompletedCourseInstances(course)
+		return(len(incomplete) != 0)
+			
 
 class Course(models.Model):
 	
@@ -132,7 +137,17 @@ class CourseInstanceManager(models.Manager):
 				number_complete += 1
 		return(number_complete)
 		
-	
+	def allCourseInstances(self, course): # For user
+		course_instances = super().filter(course=course)
+		return(course_instances)
+		
+	def allIncompletedCourseInstances(self, course): # For user
+		course_instances = self.allCourseInstances(course)
+		incomplete = []
+		for c in course_instances:
+			if not CourseInstance.objects.is_completed(c):
+				incomplete.append(c)
+		return(incomplete)
 
 
 class ModuleInstanceManager(models.Manager):
@@ -154,7 +169,7 @@ class CourseInstance(models.Model):
 	objects = CourseInstanceManager()
 	
 	def __str__(self):
-		return(str(self.course) + ' | ' + self.startdate)
+		return(str(self.course) + ' | ' + str(self.startdate))
 	
 	def is_completed(self): # For user
 		# Return True if all modules are completed
@@ -187,7 +202,7 @@ class ModuleInstance(models.Model):
 	objects = ModuleInstanceManager()
 	
 	def __str__(self):
-		return(str(self.module) + ' | ' + self.startdate)
+		return(str(self.module) + ' | ' + str(self.startdate))
 	
 	def is_completed(self):
 		# Completed if there is a module review
