@@ -43,7 +43,7 @@ def my_courses(request):
 	courses_not_completed = []
 	courses_completed = []
 	for c in course_instances:
-		if c.is_completed(): # For user
+		if CourseInstance.objects.is_completed(c): # For user
 			courses_completed.append(c)
 		else:
 			courses_not_completed.append(c)

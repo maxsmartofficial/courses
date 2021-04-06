@@ -9,6 +9,14 @@ import markdown as md
 register = template.Library()
 
 @register.simple_tag
+def course_is_completed(course_instance):
+	return(CourseInstance.objects.is_completed(course_instance))
+	
+@register.simple_tag
+def total_completed_modules(course_instance):
+	return(CourseInstance.objects.completed_modules(course_instance))
+
+@register.simple_tag
 def get_course_end_date(course_instance):
 	endDate = CourseInstance.objects.getEndDate(course_instance)
 	return(endDate)

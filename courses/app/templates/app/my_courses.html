@@ -15,12 +15,14 @@
 
 {% for c in courses %}
 {% get_next_deadline c as deadline %}
+{% course_is_completed c as completed %}
+{% total_completed_modules c as modules_complete %}
 <div class="box {% if deadline %}has-background-warning-light" style="border:1px solid red;{% endif %}">
- <h2 class="subtitle"><a href="{% url 'my_courses_course' c.id %}">{{ c.course.name }}</a>{% if c.is_completed %} <b>Completed</b>{% endif %}</h2>
+ <h2 class="subtitle"><a href="{% url 'my_courses_course' c.id %}">{{ c.course.name }}</a>{% if completed %} <b>Completed</b>{% endif %}</h2>
  <div class="block is-family-secondary">{{ c.course.short_description | markdown | safe }}</div>
  <div class="block columns">
   <div class="column">
-   <p class="is-family-secondary">Modules: <b>{{ c.completed_modules }}/{% course_module_count c.course %} complete</b></p>
+   <p class="is-family-secondary">Modules: <b>{{ modules_complete }}/{% course_module_count c.course %} complete</b></p>
   </div>
   
    <div class="column is-narrow">

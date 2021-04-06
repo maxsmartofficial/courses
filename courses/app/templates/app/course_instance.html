@@ -6,9 +6,11 @@
 
 {% load markdown_tags %}
 
+{% course_is_completed course_instance as completed %}
+
 <div class="box">
  <div class="block">
-  <h1 class="title">{{ course_instance.course.name }} {% if course_instance.is_completed %}<b>Completed</b>{% endif %}</h1>
+  <h1 class="title">{{ course_instance.course.name }} {% if completed %}<b>Completed</b>{% endif %}</h1>
  </div>
  <div class="block is-family-secondary">{{ course_instance.course.description | markdown | safe }}</div>
 </div>
