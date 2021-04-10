@@ -135,3 +135,9 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
 STATIC_URL = '/static/'
+
+
+# allauth settings
+ACCOUNT_AUTHENTICATION_METHOD = 'email' # Login with email
+ACCOUNT_EMAIL_REQUIRED = True # Email address is required
+ACCOUNT_USERNAME_REQUIRED = False # Username is not required to sign up
