@@ -266,6 +266,10 @@ class ModuleReview(models.Model):
 class Student(models.Model):
 	user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
 	points = models.IntegerField(default=0)
+	
+	def add_points(self, points):
+		self.points += points
+		self.save()
 
 
 @receiver(post_save, sender=settings.AUTH_USER_MODEL)
