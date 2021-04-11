@@ -113,9 +113,12 @@ document.addEventListener('DOMContentLoaded', function () {
    </div>
    
    <div class="navbar-end">
-    <div class="navbar-item is-family-secondary">
-		Hello Student
-	</div>
+	 {% if user.is_authenticated %}
+	  <a class="navbar-item is-family-secondary" href="{% url 'account_logout' %}">Log out {{ user.username }}</a>
+	 {% else %}
+	   <a class="navbar-item is-family-secondary" href="{% url 'account_login' %}">Log in</a>
+	   <a class="navbar-item is-family-secondary" href="{% url 'account_signup' %}">Sign up</a>
+	 {% endif %}
     <div class="navbar-item is-family-secondary">
 		You have:&nbsp;<b>{% count_modules %}</b>&nbsp;assignments due soon
 	</div>
