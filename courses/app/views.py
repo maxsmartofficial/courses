@@ -101,7 +101,9 @@ def module_review(request):
 
 
 def my_modules(request):
-	modules = ModuleInstance.objects.all()# For user
+	user = request.user
+	student = user.student
+	modules = ModuleInstance.objects.filter(student=student)# For user
 	
 	# Sort modules
 	modules_due = []
