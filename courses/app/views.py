@@ -3,6 +3,7 @@ from django.http import HttpResponse, Http404, HttpResponseRedirect
 from django.urls import reverse
 from .models import Course, Module, CourseInstance, ModuleInstance
 from .forms import CourseSignUpForm, ModuleReviewForm
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 
@@ -17,7 +18,11 @@ def view_course(request, course_slug):
 	c = Course.objects.get(slug=course_slug)
 	module_list = Module.objects.filter(course=c).order_by('order')
 	form = CourseSignUpForm(initial={"course": c})
-	sign_up_possible = not Course.objects.alreadySignedUp(c) # For user
+	user = request.user
+	if user.is_authenticated:
+		sign_up_possible = not Course.objects.alreadySignedUp(c, user.student) # For user
+	else:
+		sign_up_possible = True
 	return(render(request, 'app/course.html', {"course": c, "modules": module_list, "form": form, "sign_up_possible": sign_up_possible}))
 	
 	
@@ -26,11 +31,13 @@ def course_sign_up(request):
 		form = CourseSignUpForm(request.POST)
 		if form.is_valid():
 			course = form.cleaned_data['course']
-			if Course.objects.alreadySignedUp(course): # For user
+			user = request.user
+			student = user.student
+			if Course.objects.alreadySignedUp(course, student): # For user
 				# Not valid
 				return(Http404)
 			length = form.cleaned_data['length']
-			course_instance = CourseInstance.objects.startNewCourseInstance(course, length)
+			course_instance = CourseInstance.objects.startNewCourseInstance(course, length, student)
 			
 			return(HttpResponseRedirect(reverse('my_courses_course', kwargs={"pk":course_instance.id})))
 			
@@ -40,19 +47,21 @@ def course_sign_up(request):
 	return(render(request, 'app/signup.html', {"form": form, "course": course}))
 	
 
-
+@login_required
 def my_courses(request):
 	# Get all courses for user
-	course_instances = CourseInstance.objects.all()
+	user = request.user
+	student = user.student
+	course_instances = CourseInstance.objects.getAllForStudent(student)
 	courses_not_completed = []
 	courses_completed = []
 	for c in course_instances:
-		if CourseInstance.objects.is_completed(c): # For user
+		if CourseInstance.objects.is_completed(c, student): # For user
 			courses_completed.append(c)
 		else:
 			courses_not_completed.append(c)
-	courses_not_completed.sort(key=lambda c: CourseInstance.objects.getNextDeadline(c))
-	courses_completed.sort(key=lambda c: CourseInstance.objects.getEndDate(c))
+	courses_not_completed.sort(key=lambda c: CourseInstance.objects.getNextDeadline(c, student))
+	courses_completed.sort(key=lambda c: CourseInstance.objects.getEndDate(c, student))
 	
 	courses = courses_not_completed + courses_completed
 	

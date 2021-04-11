@@ -14,9 +14,9 @@
 </div>
 
 {% for c in courses %}
-{% get_next_deadline c as deadline %}
-{% course_is_completed c as completed %}
-{% total_completed_modules c as modules_complete %}
+{% get_next_deadline c user as deadline %}
+{% course_is_completed c user as completed %}
+{% total_completed_modules c user as modules_complete %}
 <div class="box {% if deadline %}has-background-warning-light" style="border:1px solid red;{% endif %}">
  <h2 class="subtitle"><a href="{% url 'my_courses_course' c.id %}">{{ c.course.name }}</a>{% if completed %} <b>Completed</b>{% endif %}</h2>
  <div class="block is-family-secondary">{{ c.course.short_description | markdown | safe }}</div>
@@ -34,7 +34,7 @@
 	  </span>
 	 </span>
 	{% else %}
-	 {% get_course_end_date c as enddate %}
+	 {% get_course_end_date c user as enddate %}
 	 <span class="icon-text">
 	  <span class="is-family-secondary">
 	   Course ended: <b>{{ enddate }}</b></span>&nbsp;<span class="icon"><i class="material-icons">done</i>

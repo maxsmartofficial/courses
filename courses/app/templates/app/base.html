@@ -120,7 +120,9 @@ document.addEventListener('DOMContentLoaded', function () {
 	   <a class="navbar-item is-family-secondary" href="{% url 'account_signup' %}">Sign up</a>
 	 {% endif %}
     <div class="navbar-item is-family-secondary">
-		You have:&nbsp;<b>{% count_modules %}</b>&nbsp;assignments due soon
+		{% if user.is_authenticated %}
+		You have:&nbsp;<b>{% count_modules user %}</b>&nbsp;assignments due soon
+		{% endif %}
 	</div>
    </div>
    </div>

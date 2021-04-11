@@ -9,12 +9,14 @@ from django.dispatch import receiver
 # Create your models here.
 
 
+
+
 class CourseManager(models.Manager):
 	def totalCourseModules(self, course):
 		return(Module.objects.filter(course=course).count())
 		
-	def alreadySignedUp(self, course): # For user
-		incomplete = CourseInstance.objects.allIncompletedCourseInstances(course)
+	def alreadySignedUp(self, course, student): # For user
+		incomplete = CourseInstance.objects.allIncompletedCourseInstances(course, student)
 		return(len(incomplete) != 0)
 			
 
@@ -68,10 +70,11 @@ class Assignment(models.Model):
 		return(str(self.module))
 
 class CourseInstanceManager(models.Manager):
-	def startNewCourseInstance(self, course, length):
+	def startNewCourseInstance(self, course, length, student):
 		start_date = datetime.datetime.now()
 		course_instance = CourseInstance(course=course, startdate = start_date)
 		course_instance.save()
+		student.course_instances.add(course_instance)
 		# Create module instances
 		modules = course.module_set.all().order_by('order')
 		# Create first module instance - starting right now
@@ -79,7 +82,7 @@ class CourseInstanceManager(models.Manager):
 		startdate = start_date
 		time = m.getTimeAllocated(length)
 		deadline = startdate + datetime.timedelta(seconds = time)
-		module_instance = ModuleInstance(course_instance=course_instance,
+		module_instance = ModuleInstance(student=student, course_instance=course_instance,
 							module = m, startdate = startdate, deadline = deadline)
 		module_instance.save()
 		# Create other module instances - starting after previous deadline
@@ -88,29 +91,29 @@ class CourseInstanceManager(models.Manager):
 			startdate = deadline
 			time = m.getTimeAllocated(length)
 			deadline = startdate + datetime.timedelta(seconds = time)
-			module_instance = ModuleInstance(course_instance=course_instance,
+			module_instance = ModuleInstance(student=student, course_instance=course_instance,
 								module = m, startdate = startdate, deadline = deadline)
 			module_instance.save()
 			
 		return(course_instance)
 		
-	def getModules(self, course_instance): # For user
+	def getModules(self, course_instance, student): # For user
 		"""Get ordered module instances for a course_instance"""
-		return(ModuleInstance.objects.filter(course_instance=course_instance).order_by('module__order'))
+		return(ModuleInstance.objects.filter(course_instance=course_instance, student=student).order_by('module__order'))
 		
 		
-	def previousModuleCompleted(self, module_instance): # For user
+	def previousModuleCompleted(self, module_instance, student): # For user
 		"""Return True if the previous module is completed, or if it's the first module"""
 		course_instance = module_instance.course_instance
-		module_list = list(self.getModules(course_instance))
+		module_list = list(self.getModules(course_instance, student))
 		index = module_list.index(module_instance)
 		if index == 0:
 			return(True)
 		else:
 			return(module_list[index - 1].is_completed())
 			
-	def getNextDeadline(self, course_instance): # For user
-		module_instances = self.getModules(course_instance)
+	def getNextDeadline(self, course_instance, student): # For user
+		module_instances = self.getModules(course_instance, student)
 		nextDeadline = None
 		for m in module_instances:
 			if not m.is_completed():
@@ -119,45 +122,51 @@ class CourseInstanceManager(models.Manager):
 					nextDeadline = deadline
 		return(nextDeadline)
 		
-	def getEndDate(self, course_instance): # For user because getModules needs user although could change this
-		modules = self.getModules(course_instance)
+	def getEndDate(self, course_instance, student): # For user because getModules needs user although could change this
+		modules = self.getModules(course_instance, student)
 		endDate = max([m.deadline for m in modules])
 		return(endDate)
 		
-	def is_completed(self, course_instance): # For user
+	def is_completed(self, course_instance, student): # For user
 		# Return True if all modules are completed
-		modules = self.getModules(course_instance)
+		modules = self.getModules(course_instance, student)
 		all_complete = True
 		for m in modules:
 			if not m.is_completed():
 				all_complete = False
 		return(all_complete)
 		
-	def completed_modules(self, course_instance): # For user
-		modules = self.getModules(course_instance)
+	def completed_modules(self, course_instance, student): # For user
+		modules = self.getModules(course_instance, student)
 		number_complete = 0
 		for m in modules:
 			if m.is_completed():
 				number_complete += 1
 		return(number_complete)
 		
-	def allCourseInstances(self, course): # For user
-		course_instances = super().filter(course=course)
+	def allCourseInstances(self, course, student): # For user #####
+		# Return a list of course instances for a specific course, and user - should probably be only one
+		course_instances = super().filter(course=course).filter(student=student)
 		return(course_instances)
 		
-	def allIncompletedCourseInstances(self, course): # For user
-		course_instances = self.allCourseInstances(course)
+	def allIncompletedCourseInstances(self, course, student): # For user #####
+		course_instances = self.allCourseInstances(course, student)
 		incomplete = []
 		for c in course_instances:
-			if not CourseInstance.objects.is_completed(c):
+			if not CourseInstance.objects.is_completed(c, student):
 				incomplete.append(c)
 		return(incomplete)
+		
+	def getAllForStudent(self, student):
+		# Returns a list of all course instances a student is signed up to
+		course_instances = super().filter(student=student)
+		return(course_instances)
 
 
 class ModuleInstanceManager(models.Manager):
-	def getTotalModulesDue(self): # For user
+	def getTotalModulesDue(self, student): # For user
 		total = 0
-		all_modules = super().all()
+		all_modules = super().filter(student=student)
 		for m in all_modules:
 			if m.is_due_soon():
 				total += 1
@@ -194,9 +203,34 @@ class CourseInstance(models.Model):
 		
 
 
+
+
+# User info model
+class Student(models.Model):
+	user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+	points = models.IntegerField(default=0)
+	
+	course_instances = models.ManyToManyField(CourseInstance)
+	
+	def add_points(self, points):
+		self.points += points
+		self.save()
+
+# Define signal to automatically create student when a new User is created
+@receiver(post_save, sender=settings.AUTH_USER_MODEL)
+def update_profile_signal(sender, instance, created, **kwargs):
+	if created:
+		Student.objects.create(user=instance)
+	instance.student.save()
+
+
+
+
+
 class ModuleInstance(models.Model):
 	# One of these is created for each student
 	id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+	student = models.ForeignKey(Student, on_delete=models.CASCADE, default=None)
 	course_instance = models.ForeignKey(CourseInstance, on_delete=models.CASCADE)
 	module = models.ForeignKey(Module, on_delete=models.CASCADE)
 	startdate = models.DateTimeField(null=True)
@@ -214,7 +248,7 @@ class ModuleInstance(models.Model):
 		
 	def is_available(self):
 		# Available if it is past the startdate or the previous module is completed
-		if CourseInstance.objects.previousModuleCompleted(self):
+		if CourseInstance.objects.previousModuleCompleted(self, self.student): # for user??
 			return(True)
 		else:
 			now = datetime.datetime.now().astimezone()
@@ -262,18 +296,3 @@ class ModuleReview(models.Model):
 	assignment_review = models.CharField(max_length=2, choices = ASSIGNMENT_CHOICES, default="NA")
 
 
-# User info model
-class Student(models.Model):
-	user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-	points = models.IntegerField(default=0)
-	
-	def add_points(self, points):
-		self.points += points
-		self.save()
-
-
-@receiver(post_save, sender=settings.AUTH_USER_MODEL)
-def update_profile_signal(sender, instance, created, **kwargs):
-	if created:
-		Student.objects.create(user=instance)
-	instance.student.save()
