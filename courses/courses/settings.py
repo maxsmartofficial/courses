@@ -142,4 +142,7 @@ ACCOUNT_AUTHENTICATION_METHOD = 'email' # Login with email
 ACCOUNT_EMAIL_REQUIRED = True # Email address is required
 ACCOUNT_USERNAME_REQUIRED = False # Username is not required to sign up
 ACCOUNT_UNIQUE_EMAIL = True # Require email addresses to be unique
-ACCOUNT_USER_MODEL_USERNAME_FIELD = None # Don't collect usernames
+ACCOUNT_USER_MODEL_USERNAME_FIELD = 'username' # Don't collect usernames
+
+LOGIN_REDIRECT_URL = '/'
+ACCOUNT_EMAIL_VERIFICATION = 'none' # For testing, don't require email verification

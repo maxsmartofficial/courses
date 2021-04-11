@@ -2,6 +2,10 @@ from django.db import models
 import uuid
 import datetime
 
+from django.conf import settings
+from django.db.models.signals import post_save
+from django.dispatch import receiver
+
 # Create your models here.
 
 
@@ -256,3 +260,16 @@ class ModuleReview(models.Model):
 	assignment_success = models.CharField(max_length=2, choices = SUCCESS_CHOICES, default="NA")
 	research_review = models.CharField(max_length=2, choices = RESEARCH_CHOICES, default="NA")
 	assignment_review = models.CharField(max_length=2, choices = ASSIGNMENT_CHOICES, default="NA")
+
+
+# User info model
+class Student(models.Model):
+	user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+	points = models.IntegerField(default=0)
+
+
+@receiver(post_save, sender=settings.AUTH_USER_MODEL)
+def update_profile_signal(sender, instance, created, **kwargs):
+	if created:
+		Student.objects.create(user=instance)
+	instance.student.save()
