@@ -12,7 +12,7 @@
  <div class="block">
   <h1 class="title">{{ course_instance.course.name }} {% if completed %}<b>Completed</b>{% endif %}</h1>
  </div>
- <div class="block is-family-secondary content">{{ course_instance.course.description | markdown | safe }}</div>
+ <div class="block is-family-secondary content markdown">{{ course_instance.course.description | markdown | safe }}</div>
 
 </div>
  {% if module_instances %}

@@ -86,7 +86,7 @@
   width: 0.625em; }
 
 .box:not(:last-child), .content:not(:last-child), .notification:not(:last-child), .progress:not(:last-child), .table:not(:last-child), .table-container:not(:last-child), .title:not(:last-child),
-.subtitle:not(:last-child), .block:not(:last-child), .highlight:not(:last-child), .breadcrumb:not(:last-child), .level:not(:last-child), .message:not(:last-child), .pagination:not(:last-child), .tabs:not(:last-child) {
+.subtitle:not(:last-child), .markdown h1:not(:last-child), .markdown h2:not(:last-child), .markdown h3:not(:last-child), .markdown h4:not(:last-child), .markdown h5:not(:last-child), .markdown h6:not(:last-child), .block:not(:last-child), .highlight:not(:last-child), .breadcrumb:not(:last-child), .level:not(:last-child), .message:not(:last-child), .pagination:not(:last-child), .tabs:not(:last-child) {
   margin-bottom: 1.5rem; }
 
 .delete, .modal-close {
@@ -1597,6 +1597,18 @@ div.icon-text {
     top: 0.5rem; }
   .notification .title,
   .notification .subtitle,
+  .notification .markdown h1,
+  .markdown .notification h1,
+  .notification .markdown h2,
+  .markdown .notification h2,
+  .notification .markdown h3,
+  .markdown .notification h3,
+  .notification .markdown h4,
+  .markdown .notification h4,
+  .notification .markdown h5,
+  .markdown .notification h5,
+  .notification .markdown h6,
+  .markdown .notification h6,
   .notification .content {
     color: currentColor; }
   .notification.is-white {
@@ -2056,21 +2068,57 @@ a.tag:hover {
   text-decoration: underline; }
 
 .title,
-.subtitle {
+.subtitle,
+.markdown h1,
+.markdown h2,
+.markdown h3,
+.markdown h4,
+.markdown h5,
+.markdown h6 {
   word-break: break-word; }
   .title em,
   .title span,
   .subtitle em,
-  .subtitle span {
+  .markdown h1 em,
+  .markdown h2 em,
+  .markdown h3 em,
+  .markdown h4 em,
+  .markdown h5 em,
+  .markdown h6 em,
+  .subtitle span,
+  .markdown h1 span,
+  .markdown h2 span,
+  .markdown h3 span,
+  .markdown h4 span,
+  .markdown h5 span,
+  .markdown h6 span {
     font-weight: inherit; }
   .title sub,
-  .subtitle sub {
+  .subtitle sub,
+  .markdown h1 sub,
+  .markdown h2 sub,
+  .markdown h3 sub,
+  .markdown h4 sub,
+  .markdown h5 sub,
+  .markdown h6 sub {
     font-size: 0.75em; }
   .title sup,
-  .subtitle sup {
+  .subtitle sup,
+  .markdown h1 sup,
+  .markdown h2 sup,
+  .markdown h3 sup,
+  .markdown h4 sup,
+  .markdown h5 sup,
+  .markdown h6 sup {
     font-size: 0.75em; }
   .title .tag,
-  .subtitle .tag {
+  .subtitle .tag,
+  .markdown h1 .tag,
+  .markdown h2 .tag,
+  .markdown h3 .tag,
+  .markdown h4 .tag,
+  .markdown h5 .tag,
+  .markdown h6 .tag {
     vertical-align: middle; }
 
 .title {
@@ -2083,7 +2131,7 @@ a.tag:hover {
     font-weight: inherit; }
   .title + .highlight {
     margin-top: -0.75rem; }
-  .title:not(.is-spaced) + .subtitle {
+  .title:not(.is-spaced) + .subtitle, .markdown .title:not(.is-spaced) + h1, .markdown .title:not(.is-spaced) + h2, .markdown .title:not(.is-spaced) + h3, .markdown .title:not(.is-spaced) + h4, .markdown .title:not(.is-spaced) + h5, .markdown .title:not(.is-spaced) + h6 {
     margin-top: -1.25rem; }
   .title.is-1 {
     font-size: 3rem; }
@@ -2100,29 +2148,36 @@ a.tag:hover {
   .title.is-7 {
     font-size: 0.75rem; }
 
-.subtitle {
+
+.subtitle,
+.markdown h1,
+.markdown h2,
+.markdown h3,
+.markdown h4,
+.markdown h5,
+.markdown h6 {
   color: #4a4a4a;
   font-size: 1.25rem;
   font-weight: 400;
   line-height: 1.25; }
-  .subtitle strong {
+  .subtitle strong, .markdown h1 strong, .markdown h2 strong, .markdown h3 strong, .markdown h4 strong, .markdown h5 strong, .markdown h6 strong {
     color: #363636;
     font-weight: 600; }
-  .subtitle:not(.is-spaced) + .title {
+  .subtitle:not(.is-spaced) + .title, .markdown h1:not(.is-spaced) + .title, .markdown h2:not(.is-spaced) + .title, .markdown h3:not(.is-spaced) + .title, .markdown h4:not(.is-spaced) + .title, .markdown h5:not(.is-spaced) + .title, .markdown h6:not(.is-spaced) + .title {
     margin-top: -1.25rem; }
-  .subtitle.is-1 {
+  .subtitle.is-1, .markdown h1.is-1, .markdown h2.is-1, .markdown h3.is-1, .markdown h4.is-1, .markdown h5.is-1, .markdown h6.is-1 {
     font-size: 3rem; }
-  .subtitle.is-2 {
+  .subtitle.is-2, .markdown h1.is-2, .markdown h2.is-2, .markdown h3.is-2, .markdown h4.is-2, .markdown h5.is-2, .markdown h6.is-2 {
     font-size: 2.5rem; }
-  .subtitle.is-3 {
+  .subtitle.is-3, .markdown h1.is-3, .markdown h2.is-3, .markdown h3.is-3, .markdown h4.is-3, .markdown h5.is-3, .markdown h6.is-3 {
     font-size: 2rem; }
-  .subtitle.is-4 {
+  .subtitle.is-4, .markdown h1.is-4, .markdown h2.is-4, .markdown h3.is-4, .markdown h4.is-4, .markdown h5.is-4, .markdown h6.is-4 {
     font-size: 1.5rem; }
-  .subtitle.is-5 {
+  .subtitle.is-5, .markdown h1.is-5, .markdown h2.is-5, .markdown h3.is-5, .markdown h4.is-5, .markdown h5.is-5, .markdown h6.is-5 {
     font-size: 1.25rem; }
-  .subtitle.is-6 {
+  .subtitle.is-6, .markdown h1.is-6, .markdown h2.is-6, .markdown h3.is-6, .markdown h4.is-6, .markdown h5.is-6, .markdown h6.is-6 {
     font-size: 1rem; }
-  .subtitle.is-7 {
+  .subtitle.is-7, .markdown h1.is-7, .markdown h2.is-7, .markdown h3.is-7, .markdown h4.is-7, .markdown h5.is-7, .markdown h6.is-7 {
     font-size: 0.75rem; }
 
 .heading {
@@ -3184,7 +3239,19 @@ button.dropdown-item {
   flex-shrink: 0;
   justify-content: center; }
   .level-item .title,
-  .level-item .subtitle {
+  .level-item .subtitle,
+  .level-item .markdown h1,
+  .markdown .level-item h1,
+  .level-item .markdown h2,
+  .markdown .level-item h2,
+  .level-item .markdown h3,
+  .markdown .level-item h3,
+  .level-item .markdown h4,
+  .markdown .level-item h4,
+  .level-item .markdown h5,
+  .markdown .level-item h5,
+  .level-item .markdown h6,
+  .markdown .level-item h6 {
     margin-bottom: 0; }
   @media screen and (max-width: 768px) {
     .level-item:not(:last-child) {
@@ -7257,10 +7324,22 @@ a.has-text-danger-dark:hover, a.has-text-danger-dark:focus {
       color: inherit; }
     .hero.is-white .title {
       color: #0a0a0a; }
-    .hero.is-white .subtitle {
+    .hero.is-white .subtitle, .hero.is-white .markdown h1, .markdown .hero.is-white h1, .hero.is-white .markdown h2, .markdown .hero.is-white h2, .hero.is-white .markdown h3, .markdown .hero.is-white h3, .hero.is-white .markdown h4, .markdown .hero.is-white h4, .hero.is-white .markdown h5, .markdown .hero.is-white h5, .hero.is-white .markdown h6, .markdown .hero.is-white h6 {
       color: rgba(10, 10, 10, 0.9); }
-      .hero.is-white .subtitle a:not(.button),
-      .hero.is-white .subtitle strong {
+      .hero.is-white .subtitle a:not(.button), .hero.is-white .markdown h1 a:not(.button), .markdown .hero.is-white h1 a:not(.button), .hero.is-white .markdown h2 a:not(.button), .markdown .hero.is-white h2 a:not(.button), .hero.is-white .markdown h3 a:not(.button), .markdown .hero.is-white h3 a:not(.button), .hero.is-white .markdown h4 a:not(.button), .markdown .hero.is-white h4 a:not(.button), .hero.is-white .markdown h5 a:not(.button), .markdown .hero.is-white h5 a:not(.button), .hero.is-white .markdown h6 a:not(.button), .markdown .hero.is-white h6 a:not(.button),
+      .hero.is-white .subtitle strong,
+      .hero.is-white .markdown h1 strong,
+      .markdown .hero.is-white h1 strong,
+      .hero.is-white .markdown h2 strong,
+      .markdown .hero.is-white h2 strong,
+      .hero.is-white .markdown h3 strong,
+      .markdown .hero.is-white h3 strong,
+      .hero.is-white .markdown h4 strong,
+      .markdown .hero.is-white h4 strong,
+      .hero.is-white .markdown h5 strong,
+      .markdown .hero.is-white h5 strong,
+      .hero.is-white .markdown h6 strong,
+      .markdown .hero.is-white h6 strong {
         color: #0a0a0a; }
     @media screen and (max-width: 1023px) {
       .hero.is-white .navbar-menu {
@@ -7301,10 +7380,22 @@ a.has-text-danger-dark:hover, a.has-text-danger-dark:focus {
       color: inherit; }
     .hero.is-black .title {
       color: white; }
-    .hero.is-black .subtitle {
+    .hero.is-black .subtitle, .hero.is-black .markdown h1, .markdown .hero.is-black h1, .hero.is-black .markdown h2, .markdown .hero.is-black h2, .hero.is-black .markdown h3, .markdown .hero.is-black h3, .hero.is-black .markdown h4, .markdown .hero.is-black h4, .hero.is-black .markdown h5, .markdown .hero.is-black h5, .hero.is-black .markdown h6, .markdown .hero.is-black h6 {
       color: rgba(255, 255, 255, 0.9); }
-      .hero.is-black .subtitle a:not(.button),
-      .hero.is-black .subtitle strong {
+      .hero.is-black .subtitle a:not(.button), .hero.is-black .markdown h1 a:not(.button), .markdown .hero.is-black h1 a:not(.button), .hero.is-black .markdown h2 a:not(.button), .markdown .hero.is-black h2 a:not(.button), .hero.is-black .markdown h3 a:not(.button), .markdown .hero.is-black h3 a:not(.button), .hero.is-black .markdown h4 a:not(.button), .markdown .hero.is-black h4 a:not(.button), .hero.is-black .markdown h5 a:not(.button), .markdown .hero.is-black h5 a:not(.button), .hero.is-black .markdown h6 a:not(.button), .markdown .hero.is-black h6 a:not(.button),
+      .hero.is-black .subtitle strong,
+      .hero.is-black .markdown h1 strong,
+      .markdown .hero.is-black h1 strong,
+      .hero.is-black .markdown h2 strong,
+      .markdown .hero.is-black h2 strong,
+      .hero.is-black .markdown h3 strong,
+      .markdown .hero.is-black h3 strong,
+      .hero.is-black .markdown h4 strong,
+      .markdown .hero.is-black h4 strong,
+      .hero.is-black .markdown h5 strong,
+      .markdown .hero.is-black h5 strong,
+      .hero.is-black .markdown h6 strong,
+      .markdown .hero.is-black h6 strong {
         color: white; }
     @media screen and (max-width: 1023px) {
       .hero.is-black .navbar-menu {
@@ -7345,10 +7436,22 @@ a.has-text-danger-dark:hover, a.has-text-danger-dark:focus {
       color: inherit; }
     .hero.is-light .title {
       color: rgba(0, 0, 0, 0.7); }
-    .hero.is-light .subtitle {
+    .hero.is-light .subtitle, .hero.is-light .markdown h1, .markdown .hero.is-light h1, .hero.is-light .markdown h2, .markdown .hero.is-light h2, .hero.is-light .markdown h3, .markdown .hero.is-light h3, .hero.is-light .markdown h4, .markdown .hero.is-light h4, .hero.is-light .markdown h5, .markdown .hero.is-light h5, .hero.is-light .markdown h6, .markdown .hero.is-light h6 {
       color: rgba(0, 0, 0, 0.9); }
-      .hero.is-light .subtitle a:not(.button),
-      .hero.is-light .subtitle strong {
+      .hero.is-light .subtitle a:not(.button), .hero.is-light .markdown h1 a:not(.button), .markdown .hero.is-light h1 a:not(.button), .hero.is-light .markdown h2 a:not(.button), .markdown .hero.is-light h2 a:not(.button), .hero.is-light .markdown h3 a:not(.button), .markdown .hero.is-light h3 a:not(.button), .hero.is-light .markdown h4 a:not(.button), .markdown .hero.is-light h4 a:not(.button), .hero.is-light .markdown h5 a:not(.button), .markdown .hero.is-light h5 a:not(.button), .hero.is-light .markdown h6 a:not(.button), .markdown .hero.is-light h6 a:not(.button),
+      .hero.is-light .subtitle strong,
+      .hero.is-light .markdown h1 strong,
+      .markdown .hero.is-light h1 strong,
+      .hero.is-light .markdown h2 strong,
+      .markdown .hero.is-light h2 strong,
+      .hero.is-light .markdown h3 strong,
+      .markdown .hero.is-light h3 strong,
+      .hero.is-light .markdown h4 strong,
+      .markdown .hero.is-light h4 strong,
+      .hero.is-light .markdown h5 strong,
+      .markdown .hero.is-light h5 strong,
+      .hero.is-light .markdown h6 strong,
+      .markdown .hero.is-light h6 strong {
         color: rgba(0, 0, 0, 0.7); }
     @media screen and (max-width: 1023px) {
       .hero.is-light .navbar-menu {
@@ -7389,10 +7492,22 @@ a.has-text-danger-dark:hover, a.has-text-danger-dark:focus {
       color: inherit; }
     .hero.is-dark .title {
       color: #fff; }
-    .hero.is-dark .subtitle {
+    .hero.is-dark .subtitle, .hero.is-dark .markdown h1, .markdown .hero.is-dark h1, .hero.is-dark .markdown h2, .markdown .hero.is-dark h2, .hero.is-dark .markdown h3, .markdown .hero.is-dark h3, .hero.is-dark .markdown h4, .markdown .hero.is-dark h4, .hero.is-dark .markdown h5, .markdown .hero.is-dark h5, .hero.is-dark .markdown h6, .markdown .hero.is-dark h6 {
       color: rgba(255, 255, 255, 0.9); }
-      .hero.is-dark .subtitle a:not(.button),
-      .hero.is-dark .subtitle strong {
+      .hero.is-dark .subtitle a:not(.button), .hero.is-dark .markdown h1 a:not(.button), .markdown .hero.is-dark h1 a:not(.button), .hero.is-dark .markdown h2 a:not(.button), .markdown .hero.is-dark h2 a:not(.button), .hero.is-dark .markdown h3 a:not(.button), .markdown .hero.is-dark h3 a:not(.button), .hero.is-dark .markdown h4 a:not(.button), .markdown .hero.is-dark h4 a:not(.button), .hero.is-dark .markdown h5 a:not(.button), .markdown .hero.is-dark h5 a:not(.button), .hero.is-dark .markdown h6 a:not(.button), .markdown .hero.is-dark h6 a:not(.button),
+      .hero.is-dark .subtitle strong,
+      .hero.is-dark .markdown h1 strong,
+      .markdown .hero.is-dark h1 strong,
+      .hero.is-dark .markdown h2 strong,
+      .markdown .hero.is-dark h2 strong,
+      .hero.is-dark .markdown h3 strong,
+      .markdown .hero.is-dark h3 strong,
+      .hero.is-dark .markdown h4 strong,
+      .markdown .hero.is-dark h4 strong,
+      .hero.is-dark .markdown h5 strong,
+      .markdown .hero.is-dark h5 strong,
+      .hero.is-dark .markdown h6 strong,
+      .markdown .hero.is-dark h6 strong {
         color: #fff; }
     @media screen and (max-width: 1023px) {
       .hero.is-dark .navbar-menu {
@@ -7433,10 +7548,22 @@ a.has-text-danger-dark:hover, a.has-text-danger-dark:focus {
       color: inherit; }
     .hero.is-primary .title {
       color: #fff; }
-    .hero.is-primary .subtitle {
+    .hero.is-primary .subtitle, .hero.is-primary .markdown h1, .markdown .hero.is-primary h1, .hero.is-primary .markdown h2, .markdown .hero.is-primary h2, .hero.is-primary .markdown h3, .markdown .hero.is-primary h3, .hero.is-primary .markdown h4, .markdown .hero.is-primary h4, .hero.is-primary .markdown h5, .markdown .hero.is-primary h5, .hero.is-primary .markdown h6, .markdown .hero.is-primary h6 {
       color: rgba(255, 255, 255, 0.9); }
-      .hero.is-primary .subtitle a:not(.button),
-      .hero.is-primary .subtitle strong {
+      .hero.is-primary .subtitle a:not(.button), .hero.is-primary .markdown h1 a:not(.button), .markdown .hero.is-primary h1 a:not(.button), .hero.is-primary .markdown h2 a:not(.button), .markdown .hero.is-primary h2 a:not(.button), .hero.is-primary .markdown h3 a:not(.button), .markdown .hero.is-primary h3 a:not(.button), .hero.is-primary .markdown h4 a:not(.button), .markdown .hero.is-primary h4 a:not(.button), .hero.is-primary .markdown h5 a:not(.button), .markdown .hero.is-primary h5 a:not(.button), .hero.is-primary .markdown h6 a:not(.button), .markdown .hero.is-primary h6 a:not(.button),
+      .hero.is-primary .subtitle strong,
+      .hero.is-primary .markdown h1 strong,
+      .markdown .hero.is-primary h1 strong,
+      .hero.is-primary .markdown h2 strong,
+      .markdown .hero.is-primary h2 strong,
+      .hero.is-primary .markdown h3 strong,
+      .markdown .hero.is-primary h3 strong,
+      .hero.is-primary .markdown h4 strong,
+      .markdown .hero.is-primary h4 strong,
+      .hero.is-primary .markdown h5 strong,
+      .markdown .hero.is-primary h5 strong,
+      .hero.is-primary .markdown h6 strong,
+      .markdown .hero.is-primary h6 strong {
         color: #fff; }
     @media screen and (max-width: 1023px) {
       .hero.is-primary .navbar-menu {
@@ -7477,10 +7604,22 @@ a.has-text-danger-dark:hover, a.has-text-danger-dark:focus {
       color: inherit; }
     .hero.is-link .title {
       color: #fff; }
-    .hero.is-link .subtitle {
+    .hero.is-link .subtitle, .hero.is-link .markdown h1, .markdown .hero.is-link h1, .hero.is-link .markdown h2, .markdown .hero.is-link h2, .hero.is-link .markdown h3, .markdown .hero.is-link h3, .hero.is-link .markdown h4, .markdown .hero.is-link h4, .hero.is-link .markdown h5, .markdown .hero.is-link h5, .hero.is-link .markdown h6, .markdown .hero.is-link h6 {
       color: rgba(255, 255, 255, 0.9); }
-      .hero.is-link .subtitle a:not(.button),
-      .hero.is-link .subtitle strong {
+      .hero.is-link .subtitle a:not(.button), .hero.is-link .markdown h1 a:not(.button), .markdown .hero.is-link h1 a:not(.button), .hero.is-link .markdown h2 a:not(.button), .markdown .hero.is-link h2 a:not(.button), .hero.is-link .markdown h3 a:not(.button), .markdown .hero.is-link h3 a:not(.button), .hero.is-link .markdown h4 a:not(.button), .markdown .hero.is-link h4 a:not(.button), .hero.is-link .markdown h5 a:not(.button), .markdown .hero.is-link h5 a:not(.button), .hero.is-link .markdown h6 a:not(.button), .markdown .hero.is-link h6 a:not(.button),
+      .hero.is-link .subtitle strong,
+      .hero.is-link .markdown h1 strong,
+      .markdown .hero.is-link h1 strong,
+      .hero.is-link .markdown h2 strong,
+      .markdown .hero.is-link h2 strong,
+      .hero.is-link .markdown h3 strong,
+      .markdown .hero.is-link h3 strong,
+      .hero.is-link .markdown h4 strong,
+      .markdown .hero.is-link h4 strong,
+      .hero.is-link .markdown h5 strong,
+      .markdown .hero.is-link h5 strong,
+      .hero.is-link .markdown h6 strong,
+      .markdown .hero.is-link h6 strong {
         color: #fff; }
     @media screen and (max-width: 1023px) {
       .hero.is-link .navbar-menu {
@@ -7521,10 +7660,22 @@ a.has-text-danger-dark:hover, a.has-text-danger-dark:focus {
       color: inherit; }
     .hero.is-info .title {
       color: #fff; }
-    .hero.is-info .subtitle {
+    .hero.is-info .subtitle, .hero.is-info .markdown h1, .markdown .hero.is-info h1, .hero.is-info .markdown h2, .markdown .hero.is-info h2, .hero.is-info .markdown h3, .markdown .hero.is-info h3, .hero.is-info .markdown h4, .markdown .hero.is-info h4, .hero.is-info .markdown h5, .markdown .hero.is-info h5, .hero.is-info .markdown h6, .markdown .hero.is-info h6 {
       color: rgba(255, 255, 255, 0.9); }
-      .hero.is-info .subtitle a:not(.button),
-      .hero.is-info .subtitle strong {
+      .hero.is-info .subtitle a:not(.button), .hero.is-info .markdown h1 a:not(.button), .markdown .hero.is-info h1 a:not(.button), .hero.is-info .markdown h2 a:not(.button), .markdown .hero.is-info h2 a:not(.button), .hero.is-info .markdown h3 a:not(.button), .markdown .hero.is-info h3 a:not(.button), .hero.is-info .markdown h4 a:not(.button), .markdown .hero.is-info h4 a:not(.button), .hero.is-info .markdown h5 a:not(.button), .markdown .hero.is-info h5 a:not(.button), .hero.is-info .markdown h6 a:not(.button), .markdown .hero.is-info h6 a:not(.button),
+      .hero.is-info .subtitle strong,
+      .hero.is-info .markdown h1 strong,
+      .markdown .hero.is-info h1 strong,
+      .hero.is-info .markdown h2 strong,
+      .markdown .hero.is-info h2 strong,
+      .hero.is-info .markdown h3 strong,
+      .markdown .hero.is-info h3 strong,
+      .hero.is-info .markdown h4 strong,
+      .markdown .hero.is-info h4 strong,
+      .hero.is-info .markdown h5 strong,
+      .markdown .hero.is-info h5 strong,
+      .hero.is-info .markdown h6 strong,
+      .markdown .hero.is-info h6 strong {
         color: #fff; }
     @media screen and (max-width: 1023px) {
       .hero.is-info .navbar-menu {
@@ -7565,10 +7716,22 @@ a.has-text-danger-dark:hover, a.has-text-danger-dark:focus {
       color: inherit; }
     .hero.is-success .title {
       color: #fff; }
-    .hero.is-success .subtitle {
+    .hero.is-success .subtitle, .hero.is-success .markdown h1, .markdown .hero.is-success h1, .hero.is-success .markdown h2, .markdown .hero.is-success h2, .hero.is-success .markdown h3, .markdown .hero.is-success h3, .hero.is-success .markdown h4, .markdown .hero.is-success h4, .hero.is-success .markdown h5, .markdown .hero.is-success h5, .hero.is-success .markdown h6, .markdown .hero.is-success h6 {
       color: rgba(255, 255, 255, 0.9); }
-      .hero.is-success .subtitle a:not(.button),
-      .hero.is-success .subtitle strong {
+      .hero.is-success .subtitle a:not(.button), .hero.is-success .markdown h1 a:not(.button), .markdown .hero.is-success h1 a:not(.button), .hero.is-success .markdown h2 a:not(.button), .markdown .hero.is-success h2 a:not(.button), .hero.is-success .markdown h3 a:not(.button), .markdown .hero.is-success h3 a:not(.button), .hero.is-success .markdown h4 a:not(.button), .markdown .hero.is-success h4 a:not(.button), .hero.is-success .markdown h5 a:not(.button), .markdown .hero.is-success h5 a:not(.button), .hero.is-success .markdown h6 a:not(.button), .markdown .hero.is-success h6 a:not(.button),
+      .hero.is-success .subtitle strong,
+      .hero.is-success .markdown h1 strong,
+      .markdown .hero.is-success h1 strong,
+      .hero.is-success .markdown h2 strong,
+      .markdown .hero.is-success h2 strong,
+      .hero.is-success .markdown h3 strong,
+      .markdown .hero.is-success h3 strong,
+      .hero.is-success .markdown h4 strong,
+      .markdown .hero.is-success h4 strong,
+      .hero.is-success .markdown h5 strong,
+      .markdown .hero.is-success h5 strong,
+      .hero.is-success .markdown h6 strong,
+      .markdown .hero.is-success h6 strong {
         color: #fff; }
     @media screen and (max-width: 1023px) {
       .hero.is-success .navbar-menu {
@@ -7609,10 +7772,22 @@ a.has-text-danger-dark:hover, a.has-text-danger-dark:focus {
       color: inherit; }
     .hero.is-warning .title {
       color: #fff; }
-    .hero.is-warning .subtitle {
+    .hero.is-warning .subtitle, .hero.is-warning .markdown h1, .markdown .hero.is-warning h1, .hero.is-warning .markdown h2, .markdown .hero.is-warning h2, .hero.is-warning .markdown h3, .markdown .hero.is-warning h3, .hero.is-warning .markdown h4, .markdown .hero.is-warning h4, .hero.is-warning .markdown h5, .markdown .hero.is-warning h5, .hero.is-warning .markdown h6, .markdown .hero.is-warning h6 {
       color: rgba(255, 255, 255, 0.9); }
-      .hero.is-warning .subtitle a:not(.button),
-      .hero.is-warning .subtitle strong {
+      .hero.is-warning .subtitle a:not(.button), .hero.is-warning .markdown h1 a:not(.button), .markdown .hero.is-warning h1 a:not(.button), .hero.is-warning .markdown h2 a:not(.button), .markdown .hero.is-warning h2 a:not(.button), .hero.is-warning .markdown h3 a:not(.button), .markdown .hero.is-warning h3 a:not(.button), .hero.is-warning .markdown h4 a:not(.button), .markdown .hero.is-warning h4 a:not(.button), .hero.is-warning .markdown h5 a:not(.button), .markdown .hero.is-warning h5 a:not(.button), .hero.is-warning .markdown h6 a:not(.button), .markdown .hero.is-warning h6 a:not(.button),
+      .hero.is-warning .subtitle strong,
+      .hero.is-warning .markdown h1 strong,
+      .markdown .hero.is-warning h1 strong,
+      .hero.is-warning .markdown h2 strong,
+      .markdown .hero.is-warning h2 strong,
+      .hero.is-warning .markdown h3 strong,
+      .markdown .hero.is-warning h3 strong,
+      .hero.is-warning .markdown h4 strong,
+      .markdown .hero.is-warning h4 strong,
+      .hero.is-warning .markdown h5 strong,
+      .markdown .hero.is-warning h5 strong,
+      .hero.is-warning .markdown h6 strong,
+      .markdown .hero.is-warning h6 strong {
         color: #fff; }
     @media screen and (max-width: 1023px) {
       .hero.is-warning .navbar-menu {
@@ -7653,10 +7828,22 @@ a.has-text-danger-dark:hover, a.has-text-danger-dark:focus {
       color: inherit; }
     .hero.is-danger .title {
       color: #fff; }
-    .hero.is-danger .subtitle {
+    .hero.is-danger .subtitle, .hero.is-danger .markdown h1, .markdown .hero.is-danger h1, .hero.is-danger .markdown h2, .markdown .hero.is-danger h2, .hero.is-danger .markdown h3, .markdown .hero.is-danger h3, .hero.is-danger .markdown h4, .markdown .hero.is-danger h4, .hero.is-danger .markdown h5, .markdown .hero.is-danger h5, .hero.is-danger .markdown h6, .markdown .hero.is-danger h6 {
       color: rgba(255, 255, 255, 0.9); }
-      .hero.is-danger .subtitle a:not(.button),
-      .hero.is-danger .subtitle strong {
+      .hero.is-danger .subtitle a:not(.button), .hero.is-danger .markdown h1 a:not(.button), .markdown .hero.is-danger h1 a:not(.button), .hero.is-danger .markdown h2 a:not(.button), .markdown .hero.is-danger h2 a:not(.button), .hero.is-danger .markdown h3 a:not(.button), .markdown .hero.is-danger h3 a:not(.button), .hero.is-danger .markdown h4 a:not(.button), .markdown .hero.is-danger h4 a:not(.button), .hero.is-danger .markdown h5 a:not(.button), .markdown .hero.is-danger h5 a:not(.button), .hero.is-danger .markdown h6 a:not(.button), .markdown .hero.is-danger h6 a:not(.button),
+      .hero.is-danger .subtitle strong,
+      .hero.is-danger .markdown h1 strong,
+      .markdown .hero.is-danger h1 strong,
+      .hero.is-danger .markdown h2 strong,
+      .markdown .hero.is-danger h2 strong,
+      .hero.is-danger .markdown h3 strong,
+      .markdown .hero.is-danger h3 strong,
+      .hero.is-danger .markdown h4 strong,
+      .markdown .hero.is-danger h4 strong,
+      .hero.is-danger .markdown h5 strong,
+      .markdown .hero.is-danger h5 strong,
+      .hero.is-danger .markdown h6 strong,
+      .markdown .hero.is-danger h6 strong {
         color: #fff; }
     @media screen and (max-width: 1023px) {
       .hero.is-danger .navbar-menu {

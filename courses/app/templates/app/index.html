@@ -14,7 +14,7 @@
 
 <div class="box">
  <h2 class="subtitle"><a href="{% url 'course' c.slug %}">{{ c.name }}</a></h2>
- <div class="block is-family-secondary content">{{ c.short_description | markdown | safe }}</div>
+ <div class="block is-family-secondary content markdown">{{ c.short_description | markdown | safe }}</div>
  <p class="block is-family-secondary">Modules: <b>{% course_module_count c %}</b></p>
 </div>
 

@@ -19,7 +19,7 @@
 {% total_completed_modules c user as modules_complete %}
 <div class="box {% if deadline %}has-background-warning-light" style="border:1px solid red;{% endif %}">
  <h2 class="subtitle"><a href="{% url 'my_courses_course' c.id %}">{{ c.course.name }}</a>{% if completed %} <b>Completed</b>{% endif %}</h2>
- <div class="block is-family-secondary content">{{ c.course.short_description | markdown | safe }}</div>
+ <div class="block is-family-secondary content markdown">{{ c.course.short_description | markdown | safe }}</div>
  <div class="block columns">
   <div class="column">
    <p class="is-family-secondary">Modules: <b>{{ modules_complete }}/{% course_module_count c.course %} complete</b></p>
