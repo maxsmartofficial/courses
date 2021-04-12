@@ -24,15 +24,15 @@
   </div>
  </div>
  <div class="block is-family-secondary content markdown">{{ module_instance.module.description | markdown | safe }}</div>
- {% if module_instance.module.research_set %}
+ {% if module_instance.module.research_set.all %}
   <h2 class="subtitle" style="text-decoration:underline;">Research</h2>
 
-  {% for a in module_instance.module.assignment_set.all %}
-   <div class="block is-family-secondary content markdown">{{ a.text | markdown | safe }}</div>
+  {% for r in module_instance.module.research_set.all %}
+   <div class="block is-family-secondary content markdown">{{ r.text | markdown | safe }}</div>
   {% endfor %}
  {% endif %}
  
- {% if module_instance.module.assignment_set %}
+ {% if module_instance.module.assignment_set.all %}
   <h2 class="subtitle" style="text-decoration:underline;">Assignments</h2>
 
   {% for a in module_instance.module.assignment_set.all %}
