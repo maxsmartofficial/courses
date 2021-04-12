@@ -72,7 +72,9 @@ def my_courses_course(request, pk):
 	# Get course instance
 	course_instance = get_object_or_404(CourseInstance, id=pk)
 	# Get module instances for course instance and user
-	module_list = ModuleInstance.objects.filter(course_instance=course_instance).order_by('module__order')
+	user = request.user
+	student = user.student
+	module_list = ModuleInstance.objects.filter(course_instance=course_instance).filter(student=student).order_by('module__order')
 	return(render(request, 'app/course_instance.html', {"course_instance": course_instance, "module_instances": module_list}))
 
 
