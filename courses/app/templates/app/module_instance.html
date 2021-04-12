@@ -23,12 +23,12 @@
    </div>
   </div>
  </div>
- <div class="block is-family-secondary">{{ module_instance.module.description | markdown | safe }}</div>
+ <div class="block is-family-secondary content">{{ module_instance.module.description | markdown | safe }}</div>
  {% if module_instance.module.research_set %}
   <h2 class="subtitle" style="text-decoration:underline;">Research</h2>
 
   {% for a in module_instance.module.assignment_set.all %}
-   <div class="block is-family-secondary">{{ a.text | markdown | safe }}</div>
+   <div class="block is-family-secondary content">{{ a.text | markdown | safe }}</div>
   {% endfor %}
  {% endif %}
  
@@ -36,7 +36,7 @@
   <h2 class="subtitle" style="text-decoration:underline;">Assignments</h2>
 
   {% for a in module_instance.module.assignment_set.all %}
-   <div class="block is-family-secondary">{{ a.text | markdown | safe }}</div>
+   <div class="block is-family-secondary content">{{ a.text | markdown | safe }}</div>
   {% endfor %}
  {% endif %}
  
