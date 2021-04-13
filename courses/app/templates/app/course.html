@@ -26,7 +26,7 @@
   {% for m in modules %}
    <hr>
    <h2 class="subtitle">{{ m.name }}</h2>
-   <div class="is-family-secondary">{{ m.short_description }}</div>
+   <div class="is-family-secondary">{{ m.short_description | markdown | safe }}</div>
   {% endfor %}
  </div>
  {% endif %}
