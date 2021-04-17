@@ -13,9 +13,16 @@
 {% for c in courses %}
 
 <div class="box">
+<div class="columns is-vcentered">
+<div class="column">
  <h2 class="subtitle"><a href="{% url 'course' c.slug %}">{{ c.name }}</a></h2>
  <div class="block is-family-secondary content markdown">{{ c.short_description | markdown | safe }}</div>
  <p class="block is-family-secondary">Modules: <b>{% course_module_count c %}</b></p>
+</div>
+<div class="column box is-one-third p-4 m-4 text-align-center" style="border:1px solid #808080;border-radius:5px;">
+<div class="container"><h2 class="subtitle">Highlight</h2><p>euler's Formula \(e^{i\pi} + 1 = 0\) where \( i^2 = -1 \)</p></div>
+</div>
+</div>
 </div>
 
 {% endfor %}
