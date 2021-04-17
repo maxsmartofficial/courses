@@ -23,8 +23,8 @@ class CourseManager(models.Manager):
 class Course(models.Model):
 	
 	name = models.CharField(max_length=200)
-	description = models.TextField(max_length=4000)
-	short_description = models.TextField(max_length=200, null=True)
+	description = models.TextField(max_length=4000, null=True, blank=True)
+	short_description = models.TextField(max_length=200, null=True, blank=True)
 	slug = models.SlugField(max_length=200, null=True)
 	
 	objects = CourseManager()
@@ -35,8 +35,8 @@ class Course(models.Model):
 class Module(models.Model):
 	
 	name = models.CharField(max_length=200)
-	description = models.TextField(max_length=4000)
-	short_description = models.TextField(max_length=200, null=True)
+	description = models.TextField(max_length=4000, null=True, blank=True)
+	short_description = models.TextField(max_length=200, null=True, blank=True)
 	order = models.IntegerField(default=0)
 	course = models.ForeignKey(Course, on_delete=models.CASCADE)
 	
